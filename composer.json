@@ -1,0 +1,61 @@
+{
+    "name": "roave/zf1-migration",
+    "description": "Enables using newer Zend Framework features in a Zend Framework 1 application for easier migration",
+    "license": "MIT",
+    "keywords": [
+        "components",
+        "zf1",
+        "zendframework"
+    ],
+    "support": {
+        "docs": "https://github.com/roave/zf1-migration#documentation",
+        "issues": "https://github.com/roave/zf1-migration/issues",
+        "source": "https://github.com/roave/zf1-migration",
+        "rss": "https://github.com/roave/zf1-migration/releases.atom"
+    },
+    "require": {
+        "php": "^7.1",
+        "psr/container": "^1.0",
+        "zendframework/zend-servicemanager": "^3.3",
+        "zendframework/zendframework1": "^1.12"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.1",
+        "zendframework/zend-coding-standard": "~1.0.0"
+    },
+    "autoload": {
+        "files": [
+            "src/constants.php",
+            "src/functions.php"
+        ],
+        "psr-4": {
+            "Roave\\Zf1Migration\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Roave\\Zf1MigrationTest\\": "test/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
+        "zf": {
+            "config-provider": "Roave\\Zf1Migration\\ConfigProvider"
+        }
+    },
+    "scripts": {
+        "check": [
+            "@cs-check",
+            "@test"
+        ],
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf",
+        "test": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+    }
+}
