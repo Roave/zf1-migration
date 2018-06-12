@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Roave\Zf1Migration\Controller;
 
-use Psr\Container\ContainerInterface;
 use Throwable;
 use Zend_Controller_Dispatcher_Exception;
 use Zend_Controller_Dispatcher_Standard;
@@ -18,12 +17,13 @@ use function sprintf;
 
 class ContainerAwareDispatcher extends Zend_Controller_Dispatcher_Standard
 {
-    private $container;
+    /**
+     * @var ControllerManager
+     */
     private $controllers;
 
-    public function __construct(ContainerInterface $container, ControllerManager $controllers, array $params = [])
+    public function __construct(ControllerManager $controllers, array $params = [])
     {
-        $this->container = $container;
         $this->controllers = $controllers;
         parent::__construct($params);
     }

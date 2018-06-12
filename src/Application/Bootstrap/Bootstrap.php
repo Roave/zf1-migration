@@ -3,18 +3,23 @@
 namespace Roave\Zf1Migration\Application\Bootstrap;
 
 use Psr\Container\ContainerInterface;
-use Roave\Zf1Migration\Application\Resource\ServiceManagerContainer;
 use Zend_Application_Bootstrap_Bootstrap;
 
+use function dirname;
 use function Roave\Zf1Migration\mapResourceName;
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
     public function __construct($application)
     {
+        // override default resources but allow them to be overridden in userland
+        $pluginLoader = $this->getPluginLoader();
+        $resourcePath = dirname(__DIR__ ) . '/Resource/';
+        $pluginLoader->addPrefixPath('Roave\Zf1Migration\Application\Resource\\',$resourcePath);
+
         parent::__construct($application);
         if (! $this->hasPluginResource(ContainerInterface::class)) {
-            $this->registerPluginResource(new ServiceManagerContainer());
+            $this->registerPluginResource('ServiceManagerContainer');
         }
     }
 

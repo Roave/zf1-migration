@@ -2,7 +2,9 @@
 
 namespace Roave\Zf1Migration;
 
-use Roave\Zf1Migration\Container\ControllerManagerFactory;
+use Roave\Zf1Migration\Controller\Container\ContainerAwareDispatcherFactory;
+use Roave\Zf1Migration\Controller\Container\ControllerManagerFactory;
+use Roave\Zf1Migration\Controller\ContainerAwareDispatcher;
 use Roave\Zf1Migration\Controller\ControllerManager;
 
 use const Roave\Zf1Migration\ZF1_CONTROLLERS_CONFIG;
@@ -21,6 +23,7 @@ class ConfigProvider
     {
         return [
             'factories' => [
+                ContainerAwareDispatcher::class => ContainerAwareDispatcherFactory::class,
                 ControllerManager::class => ControllerManagerFactory::class,
             ],
         ];

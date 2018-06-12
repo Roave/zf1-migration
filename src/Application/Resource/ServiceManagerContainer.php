@@ -2,14 +2,13 @@
 
 namespace Roave\Zf1Migration\Application\Resource;
 
-use Exception;
 use Psr\Container\ContainerInterface;
 use Zend\ServiceManager\ServiceManager;
+use Zend_Application_Resource_Exception;
 use Zend_Application_Resource_ResourceAbstract;
 use Zend_Config;
 use Zend_Registry;
 
-use function is_array;
 use function sprintf;
 
 use const Roave\Zf1Migration\SERVICE_ZF1_BOOTSTRAP;
@@ -23,13 +22,13 @@ class ServiceManagerContainer extends Zend_Application_Resource_ResourceAbstract
 
     public function init()
     {
-        $configuration = $this->getBootstrap()->getApplication()->getOption('configuration');
+        $configuration = $this->getBootstrap()->getOption('configuration') ?? [];
         if ($configuration instanceof Zend_Config) {
             $configuration = $configuration->toArray();
         }
-        if (! is_array($configuration)) {
-            throw new Exception(sprintf(
-                '%s looks for "configuration" key in application options, none found',
+        if (! isset($configuration['dependencies'])) {
+            throw new Zend_Application_Resource_Exception(sprintf(
+                '%s looks for "dependencies" key under "configuration" in application options, none found',
                 self::class
             ));
         }

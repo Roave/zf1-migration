@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Roave\Zf1Migration\Container;
+namespace Roave\Zf1Migration\Controller\Container;
 
 use Psr\Container\ContainerInterface;
 use Roave\Zf1Migration\Controller\ControllerManager;
